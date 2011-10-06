@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+	<title>Homework1</title>
+	<script src="kinetic2d-v1.0.2.js"></script>
+    <script type="application/x-javascript">
+/*---------------draw coordinate and ladder------------------*/	 
+function drawCo() {
+	canvas = document.getElementById("coCanvas");
+         context = canvas.getContext("2d");
+	for (var x = 0.5; x < 1300; x += 10) {
+		context.moveTo(x, 0);
+		context.lineTo(x, 700);
+	}
+	for (var y = 0.5; y < 700; y += 10) {
+		context.moveTo(0, y);
+		context.lineTo(1300, y);
+	}
+	context.strokeStyle = "#eee"; //light color
+	context.stroke();
+	context.beginPath();
+    context.rect(450, 650 , 100, 50);
+    context.rect(550, 600 , 100, 100);
+    context.rect(650, 550 , 100, 150);
+    context.rect(750, 500 , 100, 200);
+    context.fillStyle = "#8ED6FF";
+    context.fill();
+    context.lineWidth = 5;
+    context.strokeStyle = "black";
+    context.stroke();
+	context.rect(855, 550 , 400, 200);
+    context.fillStyle = "#8ED6FF";
+    context.fill();
+    context.lineWidth = 5;
+}
+/*---------------draw coordinate and ladder------------------*/             
+//------------------------------------------------------------
+setInterval(draw, 100);
+var positionX = 0;
+var positionY = 0;
+var moveX = 0;
+var jumpX = 0;
+var jumpY = 0;
+var upX = 0;
+var upY = 0;
+var downX = 0;
+var downY = 0;
+function  draw(){
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+	context.clearRect(0,0,1300,700);
+            
+	// draw circle for head
+	var centerX = 50;
+	var centerY = 500;
+	var radius = 20;
+	context.beginPath();
+	context.arc(centerX+moveX, centerY+positionY, 
+				radius, 0, 2 * Math.PI, false);
+	context.fillStyle = "#000000";
+	context.fill();
+	context.lineWidth = 5;
+
+	// torso
+	context.beginPath();
+	context.moveTo(50+moveX,520+positionY);
+	context.lineTo(50+moveX,625);
+	context.lineWidth = 10;
+	context.strokeStyle = "#000000"; 
+	context.lineCap = "round";
+	context.stroke();
+
+	// image right arm
+	context.beginPath();
+	context.moveTo(50+moveX, 550);
+	context.lineTo(25-positionX+moveX,590-positionY);
+	context.lineWidth = 10;
+	context.strokeStyle = "#000000"; 
+	context.lineCap = "round";
+	context.stroke();
+
+	// image left arm
+	context.beginPath();
+	context.moveTo(50+moveX, 550);
+	context.lineTo(75+positionX+moveX,590-positionY);
+	context.lineWidth = 10;
+	context.strokeStyle = "#000000"; 
+	context.lineCap = "round";
+	context.stroke();
+
+	// image right leg
+	context.beginPath();
+	context.moveTo(50+moveX, 625);
+	context.lineTo(40-positionX+moveX,700-positionY);
+	context.lineWidth = 10;
+	context.strokeStyle = "#000000"; 
+	context.lineCap = "round";
+	context.stroke();
+
+	// image left leg
+	context.beginPath();
+	context.moveTo(50+moveX, 625);
+	context.lineTo(60+positionX+moveX,700-positionY);
+	context.lineWidth = 10;
+	context.strokeStyle = "#000000"; 
+	context.lineCap = "round";
+	context.stroke();
+
+	if (positionX < 10){
+		positionX += 1;
+		positionY += 1;
+	}
+	else{
+		positionX = 0;
+		positionY = 0;
+	}
+	if (moveX < 400){
+		moveX += 5;
+	}
+	else{
+		context.clearRect(0,0,1300,700);
+		var centerX = 450;
+		var centerY = 500;
+		var radius = 20;
+		context.beginPath();
+		context.arc(centerX+upX, centerY-upY, 
+					radius, 0, 2 * Math.PI, false);
+		context.fillStyle = "#000000";
+		context.fill();
+		context.lineWidth = 5;
+
+		// torso
+		context.beginPath();
+		context.moveTo(450+upX,520-upY);
+		context.lineTo(450+upX,625-upY);
+		context.lineWidth = 10;
+		context.strokeStyle = "#000000"; 
+		context.lineCap = "round";
+		context.stroke();
+	
+		// image right arm
+		context.beginPath();
+		context.moveTo(450+upX,550-upY);
+		context.lineTo(425+upX,590-upY);
+		context.lineWidth = 10;
+		context.strokeStyle = "#000000"; 
+		context.lineCap = "round";
+		context.stroke();
+	
+		// image left arm
+		context.beginPath();
+		context.moveTo(450+upX,550-upY);
+		context.lineTo(475+upX,590-upY);
+		context.lineWidth = 10;
+		context.strokeStyle = "#000000"; 
+		context.lineCap = "round";
+		context.stroke();
+
+		// image right leg
+		context.beginPath();
+		context.moveTo(450+upX,625-upY);
+		context.lineTo(440+upX,700-upY);
+		context.lineWidth = 10;
+		context.strokeStyle = "#000000"; 
+		context.lineCap = "round";
+		context.stroke();
+
+		// image left leg
+		context.beginPath();
+		context.moveTo(450+upX, 625-upY);
+		context.lineTo(460+jumpX+upX ,700-jumpY-upY);
+		context.lineWidth = 10;
+		context.strokeStyle = "#000000"; 
+		context.lineCap = "round";
+		context.stroke();
+		if (jumpX < 30){
+			jumpX += 3;
+			jumpY += 3;
+		}
+		else{
+			jumpX = 0;
+			jumpY = 0;
+		}
+		if (upX < 400){
+			upX += 38;
+			upY += 19;
+		}
+		else{
+			context.clearRect(0,0,1300,700);
+			var centerX = 1000;
+			var centerY = 400;
+			var radius = 20;
+			context.beginPath();
+			context.arc(centerX, centerY+downY, 
+						radius, 0, 2 * Math.PI, false);
+			context.fillStyle = "#000000";
+			context.fill();
+			context.lineWidth = 5;
+
+			// torso
+			context.beginPath();
+			context.moveTo(1000,275+downY);
+			context.lineTo(1000,380+downY);
+			context.lineWidth = 10;
+			context.strokeStyle = "#000000"; 
+			context.lineCap = "round";
+			context.stroke();
+
+			// image right arm
+			context.beginPath();
+			context.moveTo(1000,350+downY);
+			context.lineTo(975,275+downY);
+			context.lineWidth = 10;
+			context.strokeStyle = "#000000"; 
+			context.lineCap = "round";
+			context.stroke();
+
+			// image left arm
+			context.beginPath();
+			context.moveTo(1000,350+downY);
+			context.lineTo(1025,275+downY);
+			context.lineWidth = 10;
+			context.strokeStyle = "#000000"; 
+			context.lineCap = "round";
+			context.stroke();
+	
+			// image right leg
+			context.beginPath();
+			context.moveTo(1000,275+downY);
+			context.lineTo(990,200+downY);
+			context.lineWidth = 10;
+			context.strokeStyle = "#000000"; 
+			context.lineCap = "round";
+			context.stroke();
+
+			// image left leg
+			context.beginPath();
+			context.moveTo(1000,275+downY);
+			context.lineTo(1010,200+downY);
+			context.lineWidth = 10;
+			context.strokeStyle = "#000000"; 
+			context.lineCap = "round";
+			context.stroke(); 
+			if (downY < 500){
+				downY += 20;
+			}
+		}
+	}
+}
+ window.onload = function(){
+	drawCo();
+};
+	</script>
+	</head>
+	<body>
+        <canvas id="myCanvas" width="1300" height="700" style="z-index: 2; 
+					position:absolute;left:0px;top:0px;">
+        </canvas>
+        <canvas id="coCanvas" width="1300" height="700">
+        </canvas>
+	</body>
+</html>
