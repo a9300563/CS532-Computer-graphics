@@ -1,0 +1,185 @@
+<!DOCTYPE HTML> 
+<html>
+    <head> 
+    <link rel="stylesheet" href="stick.css" type="text/css">
+    <script src="kinetic2d-v1.0.2.js"></script>
+    <script>
+            var armWidth = 160;
+            var armHeight = 10;
+
+            function drawArm(x, y)
+            {
+                this.x = x;
+                this.y = y;
+                this.width = armWidth;
+                this.height = armHeight;
+                context.fillRect(-armWidth / 2, -armHeight / 2, armWidth, armHeight);
+            }
+            //have no idea how to apply it
+			function keydownControl(e) {
+    
+			if(e.keyCode==65) {
+			drawArm(10,10)
+			}
+			if(e.keyCode==83) {
+			drawArm(10,10)
+			}
+			if(e.keyCode==68) {
+			drawArm(10,10)
+			}
+			}
+            function init()
+            {
+	
+               canvas = document.getElementById("stickScene");
+               context = canvas.getContext("2d");
+			   window.onkeydown = keydownControl;
+
+               // More initialization stuff should go here.
+               // I could have put armWidth and armHeight in here too.
+            }
+
+            function run()
+            {
+                // Update parameters here.
+                // Call this function at every iteration of the animation.
+                // Notice the js library that I included and didn't use - details in the reading
+            }
+
+            window.onload = function() {
+               init();
+			   kin = new Kinetic_2d("stickScene");
+			   var width = 6;
+			   var down = 0;
+			   var right = 0;
+			   var length = 0;
+			   var up = 0;
+			   var upx = 0;
+			   var upy = 0;
+			   var downy = 0;
+			   var down2 = 0;
+			   var right2 = 0;
+
+			   kin.setDrawStage(function(){
+			   kin.clear();
+			   
+				context.beginPath();
+				context.moveTo(0+right,0+down);
+				context.lineTo(80+right+length-up,0+down-up);
+				context.lineWidth = width;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath();
+				context.moveTo(400,400);
+				context.lineTo(580,400);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath(); 
+				context.moveTo(400+upx,350-upy);
+				context.lineTo(580,450-downy);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				if (down < 400){
+				down += 10;
+				}
+				else if(right<400){
+				right += 10;
+				width = 12;
+				length = 100;
+				}
+				else if(up<90){
+				up += 10;
+				}
+				else if(upx<90){
+				upx += 10;
+				}
+				else if(upy<40){
+				upy += 10;
+				}
+				else if(downy<50){
+				downy += 10;
+				}
+				else{
+				context.beginPath();
+				context.moveTo(400/2+right2,400/2+down2);
+				context.lineTo(490/2+right2,310/2+down2);
+				context.lineWidth = width;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath();
+				context.moveTo(400/2+right2,400/2+down2);
+				context.lineTo(580/2+right2,400/2+down2);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath(); 
+				context.moveTo(490/2+right2,310/2+down2);
+				context.lineTo(580/2+right2,400/2+down2);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				if (down2 < 180){
+				down2 += 10;
+				}
+				else if(right2<240){
+				right2 += 10;
+				}
+				else{
+				context.beginPath(); 
+				context.moveTo(350,500);
+				context.lineTo(650,500);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath(); 
+				context.moveTo(350,200);
+				context.lineTo(650,200);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath(); 
+				context.moveTo(350,200);
+				context.lineTo(350,500);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				context.beginPath(); 
+				context.moveTo(650,200);
+				context.lineTo(650,500);
+				context.lineWidth = 12;
+				context.strokeStyle = "#000000"; 
+				context.lineCap = "round";
+				context.stroke();
+				
+				}
+				}
+			});
+			kin.startAnimation();				 
+            };
+        </script> 
+    </head> 
+    <body onmousedown="return false;"> 
+        <canvas id="stickScene" width="960" height="640"></canvas> 
+    </body>
+
+</html>
